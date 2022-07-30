@@ -1,0 +1,1154 @@
+# Define the math context - credit: Gilles Castel
+global !p
+# texMathZones = ['texMathZone' + x for x in ['A', 'AS', 'B', 'BS', 'C', 'CS', 'D', 'DS', 'E', 'ES', 'F', 'FS', 'G', 'GS', 'H', 'HS', 'I', 'IS', 'J', 'JS', 'K', 'KS', 'L', 'LS', 'DS', 'V', 'W', 'X', 'Y', 'Z', 'AmsA', 'AmsB', 'AmsC', 'AmsD', 'AmsE', 'AmsF', 'AmsG', 'AmsAS', 'AmsBS', 'AmsCS', 'AmsDS', 'AmsES', 'AmsFS', 'AmsGS' ]]
+# 
+# texIgnoreMathZones = ['texMathText']
+# 
+# texMathZoneIds = vim.eval('map('+str(texMathZones)+", 'hlID(v:val)')")
+# texIgnoreMathZoneIds = vim.eval('map('+str(texIgnoreMathZones)+", 'hlID(v:val)')")
+# 
+# ignore = texIgnoreMathZoneIds[0]
+# 
+# def math():
+# 	synstackids = vim.eval("synstack(line('.'), col('.') - (col('.')>=2 ? 1 : 0))")
+# 	try:
+# 		first = next(i for i in reversed(synstackids) if i in texIgnoreMathZoneIds or i in texMathZoneIds)
+# 		return first != ignore
+# 	except StopIteration:
+# 		return False
+
+def math():
+	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+
+def comment():
+	return vim.eval('vimtex#syntax#in_comment()') == '1'
+
+def env(name):
+	[x,y] = vim.eval('vimtex#env#is_inside('" + name + "')')
+	return x != '0' and y != '0'
+endglobal
+
+
+# Templates
+snippet templateHW "Course Homework Template" b
+\documentclass[11pt]{article}
+
+\usepackage[${1:dutch/british},parskip]{preamble}
+\usepackage{homework}
+\usepackage{erewhon}
+\usepackage[utopia]{newtxmath}
+
+\hwcourse{$2}
+\hwlabel{$3}
+\hwauthor{Florian Velten (s2124432)}
+
+\assignmentlabel{$4}
+
+
+\begin{document}
+
+\hwmaketitle
+\hwmakeheaders
+
+$0
+
+\end{document}
+endsnippet
+
+
+snippet templateSVEN "Course Summary Template (english)" b
+\documentclass[11pt]{article}
+
+\usepackage[british,parskip]{preamble}
+\usepackage{erewhon}
+\usepackage[utopia]{newtxmath}
+
+\usepackage{framed,xcolor}
+\definecolor{shadecolor}{rgb}{0.8,0.8,0.8}
+
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+
+\newtheoremstyle{stelling}{}{}{\slshape}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{stelling}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{lem}{Lemma}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\LARGE $1 Summary}
+	\vskip1em
+	Florian Velten
+\end{center}
+
+
+\section*{$0}
+
+\end{document}
+endsnippet
+
+
+snippet templateSVNL "Course Summary Template (dutch)" b
+\documentclass[11pt]{article}
+
+\usepackage[dutch,parskip]{preamble}
+\usepackage{erewhon}
+\usepackage[utopia]{newtxmath}
+
+\usepackage{framed,xcolor}
+\definecolor{shadecolor}{rgb}{0.8,0.8,0.8}
+
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definitie}
+
+\newtheoremstyle{stelling}{}{}{\slshape}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{stelling}
+\newtheorem*{stel}{Stelling}
+\newtheorem*{lem}{Lemma}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\LARGE $1 Samenvatting}
+	\vskip1em
+	Florian Velten
+\end{center}
+
+
+\section*{$0}
+
+\end{document}
+endsnippet
+
+
+# homework - package specific
+snippet subq "subquestion" b
+\subquestion
+endsnippet
+
+
+# General Latex snippets
+priority 10
+snippet '(?<!\\)sec' "section" bAr
+\section{$1}
+$0
+endsnippet
+
+priority 11
+snippet ssec "subsection" bA
+\subsection{$1}
+$0
+endsnippet
+
+priority 12
+snippet sssec "subsubsection" bA
+\subsubsection{$1}
+$0
+endsnippet
+
+snippet nsec "unnumbered section" bA
+\section*{$1}
+$0
+endsnippet
+
+snippet nssec "unnumbered subsection" bA
+\subsection*{$1}
+$0
+endsnippet
+
+snippet nsssec "unnumbered subsubsection" bA
+\subsubsection*{$1}
+$0
+endsnippet
+
+snippet beg "begin - end block" bA
+\begin{$1}$2
+	$0
+\end{$1}
+endsnippet
+
+snippet enum "enumerate" bA
+\begin{enumerate}$2
+	\item $0
+\end{enumerate}
+endsnippet
+
+snippet item "itemise" bA
+\begin{itemize}
+	\item $0
+\end{itemize}
+endsnippet
+
+snippet i "\item" b
+\item 
+endsnippet
+
+priority 100
+snippet table "Table" b
+\begin{center}
+\begin{tabular}{$1}
+	$0
+\end{tabular}
+\end{center}
+endsnippet
+
+priority 101
+snippet captable "Table with caption" b
+\begin{table}
+	\caption{$0}
+	\label{tab:$3}
+	\centering
+	\begin{tabular}{$1}
+		$2
+	\end{tabular}
+\end{table}
+endsnippet
+
+priority 100
+snippet figure "Figure" b
+\begin{figure}
+	\centering
+	\includegraphics[$2]{$1}
+\end{figure}
+endsnippet
+
+priority 101
+snippet capfigure "Figure with caption" b
+\begin{figure}
+	\centering
+	\includegraphics[$2]{$1}
+	\caption{$0}
+	\label{fig:$3}
+\end{figure}
+endsnippet
+
+snippet mk "Inline math" wA
+$$1$$0
+endsnippet
+
+priority 10
+snippet dm "Display math" wA
+
+\begin{equation*}
+	${1:${VISUAL}}
+\end{equation*}
+endsnippet
+
+priority 11
+snippet ddm "Display math with number" wA
+
+\begin{equation}
+	${1:${VISUAL}}
+\end{equation}
+endsnippet
+
+# snippet shaded "Shaded region" bA
+# \begin{shaded*}
+# $0
+# \end{shaded*}
+# endsnippet
+# 
+# snippet framed "Framed region" bA
+# \begin{framed}
+# $0
+# \end{framed}
+# endsnippet
+
+priority 10
+snippet ali "Align" wA
+
+\begin{align*}
+	${1:${VISUAL}}
+\end{align*}
+endsnippet
+
+priority 11
+snippet dali "Align with numbers" wA
+
+\begin{align}
+	${1:${VISUAL}}
+\end{align}
+endsnippet
+
+
+priority 10
+snippet bf "Bold face text" w
+\textbf{$1}$0
+endsnippet
+
+snippet it "Italicised text" w
+\textit{$1}$0
+endsnippet
+
+snippet sl "Slanted text" w
+\textsl{$1}$0
+endsnippet
+
+snippet ul "Underlined text" w
+\underline{$1}$0
+endsnippet
+
+priority 10
+snippet quote "Quoted text" w
+\`\`$1''$0
+endsnippet
+
+
+snippet '(?<!\\)emph' "Emphasized text" wr
+\emph{${1:${VISUAL}}}$0
+endsnippet
+
+# priority 11
+# snippet quote "Quoted text from yanked content" w
+# \`\`${VISUAL}''$0
+# endsnippet
+
+
+# Fractions - credit: Gilles Castel
+context "math()"
+snippet // "Empty fraction" iA
+\frac{$1}{$2}$0
+endsnippet
+
+context "math()"
+snippet ff "Flatfrac" i
+\flatfrac{$1}{$2}$0
+endsnippet
+
+snippet / "Fraction from yanked content" i
+\frac{${VISUAL}}{$1}$0
+endsnippet
+
+context "math()"
+snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "Single character fraction" wrA
+\frac{`!p snip.rv = match.group(1)`}{$1}$0
+endsnippet
+
+priority 1000
+context "math()"
+snippet '^.*\)/' "Automatic fraction detection (brackets)" wrA
+`!p
+stripped = match.string[:-1]
+depth = 0
+i = len(stripped) - 1
+while True:
+	if stripped[i] == ')': depth += 1
+	if stripped[i] == '(': depth -= 1
+	if depth == 0: break
+	i -= 1
+snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
+`{$1}$0
+endsnippet
+
+
+# Subscripts and superscripts
+context "math()"
+snippet '([A-Za-z])(?<!\\infer)(\d)' "auto subcript" wrA
+`!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
+endsnippet
+
+context "math()"
+snippet __ "subscript" iA
+_{$1}$0
+endsnippet
+
+context "math()"
+snippet sr "^2" iA
+^2
+endsnippet
+
+context "math()"
+snippet cb "^3" iA
+^3
+endsnippet
+
+context "math()"
+snippet td "superscript" iA
+^{$1}$0
+endsnippet
+
+context "math()"
+snippet invs "inverse" iA
+^{-1}
+endsnippet
+
+context "math()"
+snippet com "complement" iA
+^{c}
+endsnippet
+
+context "math()"
+snippet conj "conjugate" iA
+^{*}
+endsnippet
+
+context "math()"
+snippet trans "transpose" iA
+^{\top}
+endsnippet
+
+context "math()"
+snippet perp "perpendicular" iA
+^{\bot}
+endsnippet
+
+context "math()"
+snippet '(?<!\\)sq' "square root" riA
+\sqrt{${1:${VISUAL}}}$0
+endsnippet
+
+
+priority 10
+context "math()"
+snippet '(?<!ph)(?<!ps)iii' "_i" iAr
+_i
+endsnippet
+
+priority 10
+context "math()"
+snippet jjj "_j" iA
+_j
+endsnippet
+
+priority 10
+context "math()"
+snippet kkk "_k" iA
+_k
+endsnippet
+
+priority 10
+context "math()"
+snippet mmm "_m" iA
+_m
+endsnippet
+
+priority 10
+context "math()"
+snippet nnn "_n" iA
+_n
+endsnippet
+
+context "math()"
+snippet tensor "Tensor indices with correct spacing" w
+\tensor{$1}{$2}$0
+endsnippet
+
+
+# Functions, sums, integrals, etc.
+priority 100
+context "math()"
+snippet '(?<!\\)(sin|cos|tan|ln|log|det|dim|ker|sgn)' "Special functions without backslash" rwA
+\\`!p snip.rv = match.group(1)`
+endsnippet
+
+# higher priority to prevent conflict with previous
+priority 200
+context "math()"
+snippet '(?<!\\)(arcsin|arccos|arctan)' "Inverse trig funcions" rwA
+\\`!p snip.rv = match.group(1)`
+endsnippet
+
+
+priority 10
+context "math()"
+snippet '(?<!\\)sum' "Summation" rwA
+\sum$0
+endsnippet
+
+priority 11
+context "math()"
+snippet dsum "Summation with bounds" wA
+\sum_{$1}^{$2}$0
+endsnippet
+
+priority 10
+context "math()"
+snippet '(?<!\\)prod' "Product" rwA
+\prod$0
+endsnippet
+
+priority 11
+context "math()"
+snippet dprod "Product with bounds" wA
+\prod_{$1}^{$2}$0
+endsnippet
+
+context "math()"
+snippet '(?<!\\)lim' "Limit" rwA
+\lim_{$1}$0
+endsnippet
+
+priority 10
+context "math()"
+snippet '(?<!\\)(?<!\\s)(?<!\\i)int' "Blank integral" rwA
+\int
+endsnippet
+
+# priority 20
+# context "math()"
+# snippet iint "Blank double integral" wA
+# \iint
+# endsnippet
+# 
+# priority 30
+# context "math()"
+# snippet iiint "Blank triple integral" wA
+# \iiint
+# endsnippet
+# 
+# priority 11
+# context "math()"
+# snippet '(?<!\\)oint' "Blank circle integral" rwA
+# \oint
+# endsnippet
+# 
+# priority 21
+# context "math()"
+# snippet oiint "Blank double circle integral" wA
+# \oiint
+# endsnippet
+# 
+# priority 31
+# context "math()"
+# snippet oiiint "Blank triple circle integral" wA
+# \oiiint
+# endsnippet
+
+priority 11
+context "math()"
+snippet dint "Definite integral" wA
+\int_{$1}^{$2}$0
+endsnippet
+
+# context "math()"
+# snippet evalat "Evaluate primitive" w
+# \bqty{$3}_{$1}^{$2}$0
+# endsnippet
+context "math()"
+snippet evalat "Evaluate primitive" w
+\left. $3 \right|_{$1}^{$2}$0
+endsnippet
+
+context "math()"
+snippet DD "Differential" iA
+\dd{$1}$0
+endsnippet
+
+
+context "math()"
+snippet '(?<!\\)binom' "Binomial coefficient" riA
+\binom{$1}{$2}$0
+endsnippet
+
+
+# Brackets
+context "math()"
+snippet '(?<!\\)abs' "Absolute value" riA
+\vqty{$1}$0
+endsnippet
+
+priority 100
+context "math()"
+snippet '(?<!\\)norm' "Norm/length" riA
+\norm{$1}$0
+endsnippet
+
+context "math()"
+snippet lr{ "Curly brackets" iA
+\qty{$1}$0
+endsnippet
+
+context "math()"
+snippet set "Curly brackets with thin spaces" A
+\qty{\, $1 \,}$0
+endsnippet
+
+context "math()"
+snippet lr( "Normal brackets" iA
+\pqty{$1}$0
+endsnippet
+
+context "math()"
+snippet lr[ "Square brackets" iA
+\bqty{$1}$0
+endsnippet
+
+priority 100
+context "math()"
+snippet lra "Pointy brackets" iA
+\langle $1 \rangle$0
+endsnippet
+
+priority 101
+context "math()"
+snippet slra "Sized pointy brackets" iA
+\left\langle $1 \right\rangle$0
+endsnippet
+
+
+# # bra-ket notation
+# context "math()"
+# snippet '(?<!\\)ket' "ket" irA
+# \ket{$1}$0
+# endsnippet
+# 
+# context "math()"
+# snippet '(?<!\\)bra' "bra" irA
+# \bra{$1}$0
+# endsnippet
+# 
+# context "math()"
+# snippet '(?<!\\)mel' "matrix element" irA
+# \mel{$1}{$2}{$3}$0
+# endsnippet
+
+
+# Matrix notation
+context "math()"
+snippet mat "Simple matrix environment" b
+\begin{${1:b/B/p/v/V}matrix}
+	$0
+\end{$1matrix}
+endsnippet
+
+context "math()"
+snippet pmati "Inline pmatrix environment" wA
+\begin{pmatrix} $1 \end{pmatrix}$0
+endsnippet
+
+
+# Math notation
+context "math()"
+snippet '(?<!\\math)cal' "Math calligraphy" ri
+\mathcal{$1}$0
+endsnippet
+
+# conflicts with 'norm', so lower priority
+priority 10
+context "math()"
+snippet '(?<!\\math)rm' "Math roman" ri
+\mathrm{$1}$0
+endsnippet
+
+context "math()"
+snippet '(?<!\\math)bb' "Math blackboard" ri
+\mathbb{$1}$0
+endsnippet
+
+priority 11
+context "math()"
+snippet '(?<!\\math)bf' "Math bold face" ri
+\mathbf{$1}$0
+endsnippet
+
+
+# General symbols
+priority 100
+context "math()"
+snippet inn "element of" iA
+\in
+endsnippet
+
+context "math()"
+snippet '(?<!\\ar)(?<!ar)cc' "Normal subset" iAr
+\subseteq
+endsnippet
+
+context "math()"
+snippet cC "Normal superset" iA
+\supseteq
+endsnippet
+
+context "math()"
+snippet \\\ "Set minus" iA
+\setminus
+endsnippet
+
+context "math()"
+snippet OO "Empty set" iA
+\emptyset
+endsnippet
+
+context "math()"
+snippet >> "Way greater than" iA
+\gg
+endsnippet
+
+context "math()"
+snippet << "Way less than" iA
+\ll
+endsnippet
+
+# context "math()"
+snippet ... "Ellipsis" iA
+\dots
+endsnippet
+
+context "math()"
+snippet xx "Multiplication cross" iA
+\times
+endsnippet
+
+priority 10
+context "math()"
+snippet ** "Multiplication dot" iA
+\cdot
+endsnippet
+
+priority 11
+context "math()"
+snippet v** "Vector dot product" iA
+\vdot
+endsnippet
+
+priority 10
+context "math()"
+snippet '(?<!\\)(?<!\\n)mid' "Divisor of" riA
+\mid
+endsnippet
+
+priority 11
+context "math()"
+snippet '(?<!\\)nmid' "Not divisor of" riA
+\nmid
+endsnippet
+
+context "math()"
+snippet '(?<!t)ooo' "Infinity" riA
+\infty
+endsnippet
+
+context "math()"
+snippet Uu "Set union" iA
+\cup
+endsnippet
+
+context "math()"
+snippet Nn "Set intersection" iA
+\cap
+endsnippet
+
+context "math()"
+snippet bcup "Big cup" iA
+\bigcup
+endsnippet
+
+context "math()"
+snippet bcap "Big cap" iA
+\bigcap
+endsnippet
+
+priority 10
+context "math()"
+snippet '(?<!\\)(?<!\\h)bar' "bar" riA
+\bar{$1}$0
+endsnippet
+
+priority 11
+context "math()"
+snippet '(?<!\\over)line' "overline" riA
+\overline{$1}$0
+endsnippet
+
+# priority 11
+# context "math()"
+# snippet '([A-Za-z])bar' "Bar" riA
+# \bar{`!p snip.rv = match.group(1) `}$0
+# endsnippet
+
+priority 100
+context "math()"
+snippet '(?<!\\)hbar' "Reduced Planck constant" riA
+\hbar
+endsnippet
+
+context "math()"
+snippet '(?<!\\)tilde' "Tilde above" irA
+\tilde{$1}$0
+endsnippet
+
+context "math()"
+snippet '(?<!\\)cir' "Circle" riA
+\circ
+endsnippet
+
+context "math()"
+snippet '(?<!\\)sim' "Tilde" riA
+\sim
+endsnippet
+
+# context "math()"
+# snippet '(?<!\\)top' "Transpose" riA
+# \top
+# endsnippet
+
+context "math()"
+snippet '(?<!\\)nab' "Nabla" riA
+\nabla
+endsnippet
+
+
+# Display math things
+context "math()"
+snippet '(?<!\\)qq' "Quick quad text" riA
+\qq{$1}$0
+endsnippet
+
+# priority 10
+# context "math()"
+# snippet '(?<!\$)q' "quad" rw
+# \quad
+# endsnippet
+
+# priority 100
+# context "math()"
+# snippet qq "qquad" w
+# \qquad
+# endsnippet
+
+context "math()"
+snippet case "Cases" i
+\begin{cases}
+	$1, & $2 \\\\
+	$3, & $4
+\end{cases}$0
+endsnippet
+
+
+# Arrows
+context "math()"
+snippet => "Implies arrow" iA
+\implies
+endsnippet
+
+context "math()"
+snippet <= "Implied by arrow" iA
+\impliedby
+endsnippet
+
+context "math()"
+snippet '(?<!\\)iff' "Equivalence" riA
+\iff
+endsnippet
+
+priority 100
+context "math()"
+snippet -> "Rightarrow" iA
+\rightarrow
+endsnippet
+
+priority 101
+context "math()"
+snippet --> "Long righarrow" iA
+\longrightarrow
+endsnippet
+
+# context "math()"
+# snippet upar "Uparrow" iA
+# \uparrow
+# endsnippet
+# 
+# context "math()"
+# snippet downar "Downarrow" iA
+# \downarrow
+# endsnippet
+
+
+# Letters and such
+context "math()"
+snippet RR "Real numbers" iA
+\mathbf{R}
+endsnippet
+
+context "math()"
+snippet QQ "Rational numbers" iA
+\mathbf{Q}
+endsnippet
+
+context "math()"
+snippet NN "Natural numbers" iA
+\mathbf{N}
+endsnippet
+
+context "math()"
+snippet CC "Complex numbers" iA
+\mathbf{C}
+endsnippet
+
+context "math()"
+snippet ZZ "Whole numbers" iA
+\mathbf{Z}
+endsnippet
+
+context "math()"
+snippet FF "Finite field" iA
+\mathbf{F}
+endsnippet
+
+context "math()"
+snippet AA "For all" iA
+\forall
+endsnippet
+
+context "math()"
+snippet EE "Exists" iA
+\exists
+endsnippet
+
+context "math()"
+snippet SS "Caligraphy S" iA
+\mathcal{S}
+endsnippet
+
+context "math()"
+snippet Cinf "C infinity" iA
+\mathcal{C}^{\infty}
+endsnippet
+
+# context "math()"
+# snippet SSnn "n-sphere" iA
+# \mathcal{S}^{n}
+# endsnippet
+
+context "math()"
+snippet '(?<!\\)part' "Partial symbol" riA
+\partial
+endsnippet
+
+
+# Operators
+priority 10
+context "math()"
+snippet '(?<!\\)dv' "Derivative" riA
+\dv{$1}{$2}$0
+endsnippet
+
+priority 11
+context "math()"
+snippet ndv "nth derivative" iA
+\dv[$1]{$2}{$3}$0
+endsnippet
+
+priority 100
+context "math()"
+snippet '(?<!\\)pdv' "Partial derivative" riA
+\pdv{$1}{$2}$0
+endsnippet
+
+priority 101
+snippet npdv "nth partial derivatie" iA
+\pdv[$1]{$2}{$3}$0
+endsnippet
+
+# context "math()"
+# snippet grad "Gradient" iA
+# \grad{$1}$0
+# endsnippet
+# 
+# context "math()"
+# snippet div "Divergence" iA
+# \div{$1}$0
+# endsnippet
+# 
+# context "math()"
+# snippet '(?<!\\)curl' "Curl" riA
+# \curl{$1}$0
+# endsnippet
+
+
+# Vectors
+context "math()"
+snippet '(?<!\\)vec' "Vector arrow notation" riA
+\vec{$1}$0
+endsnippet
+
+priority 100
+context "math()"
+snippet '(?<!\\)vb' "Vector bold face notation" riA
+\vb{$1}$0
+endsnippet
+
+context "math()"
+snippet vsb "Vector bold face notation for greek letters" iA
+\vb*{$1}$0
+endsnippet
+
+context "math()"
+snippet '(?<!\\)vu' "Unit vector bold face notation" riA
+\vu{$1}$0
+endsnippet
+
+context "math()"
+snippet vsu "Unit vector bold face notation for greek letters" iA
+\vu*{$1}$0
+endsnippet
+
+# priority 101
+# context "math()"
+# snippet '([A-Za-z])vb' "Implicit bold face vector" riA
+# \vb{`!p snip.rv = match.group(1)`}
+# endsnippet
+
+priority 100
+context "math()"
+snippet '(?<!\\)(?<!\\alp)hat' "Vector hat notation" riA
+\hat{$1}$0
+endsnippet
+
+# priority 101
+# context "math()"
+# snippet '([A-Za-z])hat' "Implicit hat vector" riA
+# \hat{`!p snip.rv = match.group(1)`}
+# endsnippet
+
+priority 10
+context "math()"
+snippet dott "Vector dot (first time derivative)" iA
+\dot{$1}$0
+endsnippet
+
+priority 11
+context "math()"
+snippet ddott "Vector double dot (second time derivative)" iA
+\ddot{$1}$0
+endsnippet
+
+# priority 100
+# context "math()"
+# snippet '([A-Za-ce-z])dot' "Implicit dot" riA
+# \dot{`!p snip.rv = match.group(1)`}
+# endsnippet
+# 
+# priority 101
+# context "math()"
+# snippet '([A-Za-z])ddot' "Implicit double dot (second time derivative)" riA
+# \ddot{`!p snip.rv = match.group(1)`}
+# endsnippet
+
+
+# Greek letters
+context "math()"
+snippet '(?<!\\)alp' "Alpha" riA
+\alpha
+endsnippet
+
+context "math()"
+snippet '(?<!\\)beta' "Beta" riA
+\beta
+endsnippet
+
+context "math()"
+snippet '(?<!\\)gam' "Gamma" riA
+\gamma
+endsnippet
+context "math()"
+snippet '(?<!\\)Gam' "Capital gamma" riA
+\Gamma
+endsnippet
+
+context "math()"
+snippet '(?<!\\)del' "Delta" riA
+\delta
+endsnippet
+context "math()"
+snippet '(?<!\\)Del' "Capital delta" riA
+\Delta
+endsnippet
+
+priority 10
+context "math()"
+snippet '(?<!\\)eps' "Epsilon" riA
+\epsilon
+endsnippet
+
+priority 11
+context "math()"
+snippet veps "Varepsilon" iA
+\varepsilon
+endsnippet
+
+context "math()"
+snippet '(?<!\\)theta' "Theta" riA
+\theta
+endsnippet
+
+context "math()"
+snippet '(?<!\\)kap' "Kappa" riA
+\kappa
+endsnippet
+
+context "math()"
+snippet '(?<!\\)lam' "Lambda" riA
+\lambda
+endsnippet
+context "math()"
+snippet '(?<!\\)Lam' "Capital lambda" riA
+\Lambda
+endsnippet
+
+context "math()"
+snippet '(?<!\\)mu' "Mu" riA
+\mu
+endsnippet
+
+context "math()"
+snippet '(?<!\\)nu' "Nu" riA
+\nu
+endsnippet
+
+context "math()"
+snippet ppi "Pi" iA
+\pi
+endsnippet
+
+context "math()"
+snippet '(?<!\\)rho' "Rho" riA
+\rho
+endsnippet
+
+context "math()"
+snippet '(?<!\\)sig' "Sigma" riA
+\sigma
+endsnippet
+
+context "math()"
+snippet '(?<!\\)tau' "Tau" riA
+\tau
+endsnippet
+
+priority 10
+context "math()"
+snippet '(?<!\\)(?<!\\var)phi' "Phi" riA
+\phi
+endsnippet
+
+priority 11
+context "math()"
+snippet vphi "Varphi" iA
+\varphi
+endsnippet
+
+context "math()"
+snippet '(?<!\\)psi' "Psi" riA
+\psi
+endsnippet
+
+context "math()"
+snippet '(?<!\\)omeg' "Omega" riA
+\omega
+endsnippet
+context "math()"
+snippet '(?<!\\)Omeg' "Capital omega" riA
+\Omega
+endsnippet
+
+
+# other things
+context "math()"
+snippet SI "physical quantity using siunitx package" i
+\SI{$1}{$2}$0
+endsnippet
+
