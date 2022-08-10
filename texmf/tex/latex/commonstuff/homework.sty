@@ -1,0 +1,101 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{homework}[2021/09/26 Commands to typeset homework]
+
+
+% =============================================================================
+% PACKAGES
+% =============================================================================
+
+\RequirePackage{fancyhdr}
+\RequirePackage{tikzducks}
+\RequirePackage{xparse}
+\RequirePackage{framed}
+
+
+% =============================================================================
+% COMMANDS
+% =============================================================================
+
+% tikzduck that can show the page numbers
+\newcommand\pagenumberduck[1]{
+    \begin{tikzpicture}
+        \duck[
+            scale=0.5,tshirt=white,jacket=gray,tie=blue,
+            tophat,signpost=\small{\textbf{#1}}
+        ]
+    \end{tikzpicture}
+}
+
+% new variables (like \@title) to be used in my own title
+\newcommand\hwcourse[1]{\renewcommand{\@hwcourse}{#1}}
+\newcommand\@hwcourse{Course}
+\newcommand\hwlabel[1]{\renewcommand{\@hwlabel}{#1}}
+\newcommand\@hwlabel{Homework}
+\newcommand\hwauthor[1]{\renewcommand{\@hwauthor}{#1}}
+\newcommand\@hwauthor{Author}
+
+% create the homework title
+\newcommand\hwmaketitle{
+    \begin{center}
+        \textbf{\LARGE\@hwcourse}
+
+        \textbf{\Large\@hwlabel}
+
+        \@hwauthor
+        \vskip 2em
+    \end{center}
+}
+
+% the header setup
+\newcommand\hwmakeheaders{
+    \pagestyle{fancy}
+    \fancyhf{}
+    \fancyhead[L]{\textsc{\@hwcourse}}
+    \fancyhead[C]{\textsc{\@hwlabel}}
+    \fancyhead[R]{\textsc{\@hwauthor}}
+    \fancyfoot[C]{\pagenumberduck{\thepage}}
+    \setlength\headheight{15pt}
+    \setlength\footskip{50pt}
+}
+
+% assignment labels
+\newcommand\assignmentlabel[1]{\renewcommand\@assignmentlabel{#1}}
+\newcommand\@assignmentlabel{Assignment}
+
+% assignments - starred version is for assignments with sub-questions
+\newcounter{assignmentctr}
+\NewDocumentEnvironment{assignment}{o}{    % optional argument is the label
+    \IfValueTF{#1} {
+            \section*{\@assignmentlabel\ #1}
+        } {
+            \refstepcounter{assignmentctr}
+            \section*{\@assignmentlabel\ \theassignmentctr}
+        }
+    \begin{framed}
+} {
+    \end{framed}
+}
+\NewDocumentEnvironment{assignment*}{o}{    % optional argument is the label
+    \IfValueTF{#1} {
+            \section*{\@assignmentlabel\ #1}
+        } {
+            \refstepcounter{assignmentctr}
+            \section*{\@assignmentlabel\ \theassignmentctr}
+        }
+    \begin{framed}
+    \begin{itemize}
+} {
+    \end{itemize}
+    \end{framed}
+}
+
+% sub-questions
+\NewDocumentCommand\subquestion{o}{     % argument is the x inside (x)
+    \IfValueTF{#1} {
+        \item[\textbf{(#1)}]
+    } {
+        \item[]
+    }
+}
+
+\endinput

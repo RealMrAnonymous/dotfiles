@@ -1,0 +1,80 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{preamble}[2021/09/26 Custom preamble]
+
+
+% =============================================================================
+% OPTIONS
+% =============================================================================
+
+\RequirePackage[dutch,british]{babel}
+\RequirePackage{calligra}
+
+\DeclareOption{dutch}{
+    \selectlanguage{dutch}
+}
+\DeclareOption{british}{
+    \selectlanguage{british}
+}
+
+\DeclareOption{parindent}{
+    \PassOptionsToPackage{skip=0pt,indent=\parindent}{parskip}
+}
+\DeclareOption{parskip}{
+    \PassOptionsToPackage{skip=.5\baselineskip,indent=0pt}{parskip}
+}
+
+\DeclareOption{captions}{
+    \PassOptionsToPackage{
+        margin=20pt,font=small,textfont=sl,labelfont=bf
+    }{caption}
+}
+
+\DeclareOption{curlyr}{
+    \DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
+    \DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+    \newcommand{\scripty}[1]{\ensuremath{\mathcalligra{#1}\,}}
+}
+
+\ExecuteOptions{british,parindent}
+
+\ProcessOptions\relax
+
+
+% =============================================================================
+% PACKAGES
+% =============================================================================
+
+% required for options
+\RequirePackage{parskip}
+
+% generic
+\RequirePackage[a4paper,margin=2cm,bottom=3cm]{geometry}
+\RequirePackage{enumerate}
+\RequirePackage{array}
+\RequirePackage{url}
+\RequirePackage{circledsteps}
+
+% pictures
+\RequirePackage{graphicx,float}
+\RequirePackage{caption}
+
+% math stuff
+\RequirePackage{amssymb,amsmath}
+\RequirePackage{amsthm}
+\RequirePackage{physics}
+\RequirePackage{esint}
+\RequirePackage{systeme}
+\RequirePackage{tensor}
+
+\RequirePackage{siunitx}
+\DeclareSIUnit{\boltzmann}{k_B}
+
+
+% =============================================================================
+% OTHER CONFIG
+% =============================================================================
+
+\DeclareEmphSequence{\slshape,\upshape,\slshape}
+
+
+\endinput
