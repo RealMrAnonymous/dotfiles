@@ -28,6 +28,9 @@ let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
 
 Plug 'preservim/nerdtree'
 
+Plug 'easymotion/vim-easymotion'
+nmap f <Plug>(easymotion-s)
+
 call plug#end()
 
 
@@ -50,7 +53,7 @@ nnoremap <leader>c :nohl<CR><C-l>
 " RENDERING
 set encoding=utf-8
 set linebreak
-set scrolloff=5
+set scrolloff=3
 syntax enable
 set wrap
 
@@ -92,6 +95,11 @@ let g:vimtex_compiler_progname = 'nvr'
 " SHORTCUTS
 nnoremap <C-n> :NERDTree<CR>
 nnoremap <M-n> :NERDTreeClose<CR>
+nnoremap <leader>u <Cmd>call UltiSnips#RefreshSnippets()<CR>
+
+
+" OTHER
+set clipboard+=unnamedplus
 
 
 " LUALINE
@@ -131,7 +139,14 @@ require('lualine').setup {
     lualine_y = {},
     lualine_z = {}
   },
-  tabline = {},
+  tabline = {
+    lualine_a = {'buffers'},
+    lualine_b = {},
+    lualine_c = {},
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = {'tabs'}
+    },
   winbar = {},
   inactive_winbar = {},
   extensions = {}
@@ -144,8 +159,8 @@ END
 
 
 
-" " Latex file anti-slowdown
-" au FileType tex setlocal nocursorline
-" au FileType tex setlocal nornu
-" au FileType tex :NoMatchParen
+" Latex file anti-slowdown
+au FileType tex setlocal nocursorline
+au FileType tex setlocal nornu
+au FileType tex :NoMatchParen
 

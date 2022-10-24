@@ -1,0 +1,20 @@
+snippet snip "snippet" b
+`!p snip.rv = "snippet"` ${1:trigger} "${2:description}" ${3:options}
+$4
+`!p snip.rv = "endsnippet"`$0
+endsnippet
+
+snippet esnip "snippet with context" b
+`!p snip.rv = "context"` ${1:context}
+`!p snip.rv = "snippet"` ${2:trigger} "${3:description}" ${4:options}
+$5
+`!p snip.rv = "endsnippet"`$0
+endsnippet
+
+snippet msnip "snippet with math context" b
+`!p snip.rv = "context"` "math()"
+`!p snip.rv = "snippet"` ${1:trigger} "${2:description}" ${3:options}
+$4
+`!p snip.rv = "endsnippet"`$0
+endsnippet
+

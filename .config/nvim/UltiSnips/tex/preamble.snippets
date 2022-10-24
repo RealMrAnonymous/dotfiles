@@ -1,0 +1,48 @@
+# TEMPLATES #
+snippet blank "Blank preamble" b
+\documentclass[11pt]{article}
+
+\usepackage{preamble}
+\usepackage{erewhon}
+\usepackage[utopia]{newtxmath}
+
+
+\begin{document}
+
+$0
+
+\end{document}
+endsnippet
+
+
+
+snippet templateHW "Course Homework Template" b
+\documentclass[11pt]{article}
+
+\usepackage[${1:dutch/british},parskip]{preamble}
+\usepackage{homework}
+\usepackage{erewhon}
+\usepackage[utopia]{newtxmath}
+
+\hwcourse{$2}
+\hwlabel{$3}
+\hwauthor{Florian Velten (s2124432)}
+
+\assignmentlabel{$4}
+
+
+\begin{document}
+
+\hwmaketitle
+\hwmakeheaders
+
+$0
+
+\end{document}
+endsnippet
+
+
+snippet sub "subquestion" b
+\subquestion
+endsnippet
+

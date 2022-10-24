@@ -125,6 +125,7 @@ alias rm='rmtrash'
 alias rmdir='rmdirtrash'
 eval "$(thefuck --alias)"
 alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+alias sl='sl -e'
 
 
 source /home/florian/alacritty/extra/completions/alacritty.bash
@@ -142,4 +143,9 @@ fi
 
 # latex reverse search
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
+
+
+# docker daemon voor dlf ict
+export PATH=/home/florian/bin:$PATH
+export DOCKER_HOST=unix:///run/user/1000/docker.sock
 

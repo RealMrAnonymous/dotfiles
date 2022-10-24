@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{preamble}[2021/09/26 Custom preamble]
+\ProvidesPackage{preamble}[2022/08/13 Custom preamble]
 
 
 % =============================================================================
@@ -61,13 +61,10 @@
 % math stuff
 \RequirePackage{amssymb,amsmath}
 \RequirePackage{amsthm}
-\RequirePackage{physics}
 \RequirePackage{esint}
 \RequirePackage{systeme}
-\RequirePackage{tensor}
 
 \RequirePackage{siunitx}
-\DeclareSIUnit{\boltzmann}{k_B}
 
 
 % =============================================================================
@@ -75,6 +72,16 @@
 % =============================================================================
 
 \DeclareEmphSequence{\slshape,\upshape,\slshape}
+
+\DeclareSIUnit{\boltzmann}{k_B}
+
+\newcommand\dd[1]{\mathinner{\mathrm{d}#1}}
+\newcommand\dv[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}}
+\newcommand\pdv[2]{\frac{\partial#1}{\partial#2}}
+\newcommand\vb[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand\vu[1]{\vb{\hat{#1}}}
+
+\newcommand\qq[1]{\quad\text{#1}\quad}
 
 
 \endinput

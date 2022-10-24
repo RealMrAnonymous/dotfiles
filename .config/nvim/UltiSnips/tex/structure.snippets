@@ -1,0 +1,148 @@
+# Define contexts - credit: Gilles Castel
+global !p
+def math():
+	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+
+def comment():
+	return vim.eval('vimtex#syntax#in_comment()') == '1'
+
+def env(name):
+	[x,y] = vim.eval('vimtex#env#is_inside('" + name + "')')
+	return x != '0' and y != '0'
+endglobal
+
+
+
+# SECTIONS #
+snippet sec "section" b
+\section{$1}$0
+endsnippet
+
+snippet ssec "subsection" b
+\subsection{$1}$0
+endsnippet
+
+snippet sssec "subsubsection" b
+\subsubsection{$1}$0
+endsnippet
+
+
+
+# ENVIRONMENTS #
+snippet beg "begin/end environment" bA
+\begin{$1}$2
+	$3
+\end{$1}$0
+endsnippet
+
+
+
+# ENUMERATIONS #
+snippet enum "enumerate" bA
+\begin{enumerate}$1
+	\item $2
+\end{enumerate}
+$0
+endsnippet
+
+snippet item "itemise" bA
+\begin{itemize}
+	\item $1
+\end{itemize}
+$0
+endsnippet
+
+snippet i "\item" b
+\item
+endsnippet
+
+
+
+# TABLES AND FIGURES #
+snippet table "Table" b
+\begin{center}
+\begin{tabular}{$1}
+	$2
+\end{tabular}
+\end{center}
+$0
+endsnippet
+
+snippet captable "Table with caption" bA
+\begin{table}
+	\caption{$4}
+	\label{tab:$3}
+	\centering
+	\begin{tabular}{$1}
+		$2
+	\end{tabular}
+\end{table}
+$0
+endsnippet
+
+snippet figure "Figure" b
+\begin{figure}
+	\centering
+	\includegraphics[$2]{$1}
+\end{figure}
+$0
+endsnippet
+
+snippet capfigure "Figure with caption" bA
+\begin{figure}
+	\centering
+	\includegraphics[$2]{$1}
+	\caption{$4}
+	\label{fig:$3}
+\end{figure}
+$0
+endsnippet
+
+
+
+# TYPESETTING #
+snippet em "emphasised" w
+\emph{${1:${VISUAL}}}$0
+endsnippet
+
+snippet bf "bold" w
+\textbf{${1:${VISUAL}}}$0
+endsnippet
+
+snippet it "italicised" w
+\textit{${1:${VISUAL}}}$0
+endsnippet
+
+snippet ul "underlined" w
+\underline{${1:${VISUAL}}}$0
+endsnippet
+
+snippet sl "slanted" w
+\textsl{${1:${VISUAL}}}$0
+endsnippet
+
+snippet kwo "quoted" w
+\`\`${1:${VISUAL}}''$0
+endsnippet
+
+
+
+# MATH ENVIRONMENTS #
+snippet mk "inline math" iA
+$${1:${VISUAL}}$$0
+endsnippet
+
+snippet dm "display math" wA
+\begin{align*}
+	${1:${VISUAL}}
+\end{align*}$0
+endsnippet
+
+snippet lab "equation label" b
+\label{eq:$1}$0
+endsnippet
+
+snippet tag "equation tag" w
+\tag{$1}$0
+endsnippet
+
