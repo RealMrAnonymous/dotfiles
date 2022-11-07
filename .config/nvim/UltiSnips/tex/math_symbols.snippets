@@ -337,7 +337,7 @@ endsnippet
 # \upsilon looks like math v and is never used
 
 context "math()"
-snippet '(?<!\\var)(v?)phi' "phi" iAr
+snippet '(?<!\\var)(?<!\\)(v?)phi' "phi" iAr
 `!p
 v = match.group(1)
 if len(v) == 0:

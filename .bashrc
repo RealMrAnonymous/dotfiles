@@ -120,7 +120,7 @@ fi
 
 
 # aliases
-alias ranger='source ranger'
+# alias ranger='source ranger'
 alias rm='rmtrash'
 alias rmdir='rmdirtrash'
 eval "$(thefuck --alias)"
@@ -148,4 +148,8 @@ export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
 # docker daemon voor dlf ict
 export PATH=/home/florian/bin:$PATH
 export DOCKER_HOST=unix:///run/user/1000/docker.sock
+
+
+# set neovim as the default editor
+export EDITOR=nvim
 

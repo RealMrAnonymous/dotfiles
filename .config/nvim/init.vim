@@ -94,7 +94,7 @@ let g:vimtex_compiler_progname = 'nvr'
 
 " SHORTCUTS
 nnoremap <C-n> :NERDTree<CR>
-nnoremap <M-n> :NERDTreeClose<CR>
+" nnoremap <M-n> :NERDTreeClose<CR>
 nnoremap <leader>u <Cmd>call UltiSnips#RefreshSnippets()<CR>
 
 

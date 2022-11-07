@@ -14,17 +14,33 @@ endglobal
 
 
 # SECTIONS #
-snippet sec "section" b
+priority 10
+snippet sec "unnumbered section" b
+\section*{$1}$0
+endsnippet
+
+snippet ssec "unnumbered subsection" b
+\subsection*{$1}$0
+endsnippet
+
+snippet ssec "unnumbered subsubsection" b
+\subsubsection*{$1}$0
+endsnippet
+
+priority 11
+snippet nsec "section" b
 \section{$1}$0
 endsnippet
 
-snippet ssec "subsection" b
+snippet nssec "subsection" b
 \subsection{$1}$0
 endsnippet
 
-snippet sssec "subsubsection" b
+snippet nsssec "subsubsection" b
 \subsubsection{$1}$0
 endsnippet
+
+priority 1
 
 
 
