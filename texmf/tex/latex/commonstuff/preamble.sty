@@ -52,7 +52,6 @@
 \RequirePackage{enumerate}
 \RequirePackage{array}
 \RequirePackage{url}
-\RequirePackage{circledsteps}
 
 % pictures
 \RequirePackage{graphicx,float}
@@ -62,8 +61,8 @@
 \RequirePackage{amssymb,amsmath}
 \RequirePackage{amsthm}
 \RequirePackage{systeme}
-
-\RequirePackage{siunitx}
+\RequirePackage{circledsteps}
+% \RequirePackage{siunitx}
 
 
 % =============================================================================
@@ -72,7 +71,7 @@
 
 \DeclareEmphSequence{\slshape,\upshape,\slshape}
 
-\DeclareSIUnit{\boltzmann}{k_B}
+% \DeclareSIUnit{\boltzmann}{k_B}
 
 \newcommand\dd[1]{\mathinner{\mathrm{d}#1}}
 \newcommand\dv[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}}
@@ -81,6 +80,8 @@
 \newcommand\vu[1]{\vb{\hat{#1}}}
 
 \newcommand\qq[1]{\quad\text{#1}\quad}
+
+\newcommand*{\at}{@}
 
 
 \endinput

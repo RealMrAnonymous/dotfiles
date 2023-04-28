@@ -148,11 +148,19 @@ snippet mk "inline math" iA
 $${1:${VISUAL}}$$0
 endsnippet
 
-snippet dm "display math" wA
+snippet dm "display math" bA
 \begin{align*}
 	${1:${VISUAL}}
 \end{align*}$0
 endsnippet
+
+priority 11
+snippet ndm "display math, with labels" bA
+\begin{align}
+	${1:${VISUAL}}
+\end{align}$0
+endsnippet
+priority 1
 
 snippet lab "equation label" b
 \label{eq:$1}$0

@@ -51,10 +51,13 @@ snippet SS "caligraphy S" iA
 \mathcal{S}
 endsnippet
 
+priority 11
 context "math()"
 snippet Cinf "C infinity" iA
 \mathcal{C}^{\infty}
 endsnippet
+
+priority 1
 
 
 
@@ -193,7 +196,7 @@ endsnippet
 
 priority 10
 context "math()"
-snippet hbar "reduced Planck's constant" iA
+snippet '(?<!\\)hbar' "reduced Planck's constant" riA
 \hbar
 endsnippet
 priority 1
@@ -429,7 +432,7 @@ snippet com "complement" iA
 endsnippet
 
 context "math()"
-snippet con "conjugate" iA
+snippet '(?<!\\)con' "conjugate" iAr
 ^{*}
 endsnippet
 

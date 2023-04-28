@@ -183,13 +183,18 @@ snippet til "tilde" iA
 endsnippet
 
 context "math()"
-snippet bar "bar" iA
+snippet '(?<!(\\|h))bar' "bar" riA
 \bar{$1}$0
 endsnippet
 
 context "math()"
 snippet line "overline" iA
 \overline{$1}$0
+endsnippet
+
+context "math()"
+snippet hatt "hat" iA
+\hat{$1}$0
 endsnippet
 
 
