@@ -14,7 +14,12 @@ alias dotfiles='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias ll='ls -la'
 
 
-alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
+# alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
 
 
-# export NVIM_LISTEN_ADDRESS /tmp/nvimsocket
+alias dlf-firefox='ssh -ND 9090 silver'
+alias dlf-mount='sshfs -o follow_symlinks dlfserver:/mnt/dlf/bestuur ~/bestuursbestanden'
+alias dlf-umount='sudo umount ~/bestuursbestanden'
+
+
+

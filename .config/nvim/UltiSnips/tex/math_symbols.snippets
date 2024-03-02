@@ -1,13 +1,13 @@
 # Define the math context - credit: Gilles Castel
 global !p
 def math():
-	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+	return vim.eval('vimtex#syntax#in_mathzone()') == '1' or env('tikzcd')
 
 def comment():
 	return vim.eval('vimtex#syntax#in_comment()') == '1'
 
 def env(name):
-	[x,y] = vim.eval('vimtex#env#is_inside('" + name + "')')
+	[x,y] = vim.eval('vimtex#env#is_inside(\'' + name + '\')')
 	return x != '0' and y != '0'
 endglobal
 
@@ -51,6 +51,11 @@ snippet SS "caligraphy S" iA
 \mathcal{S}
 endsnippet
 
+context "math()"
+snippet HH "caligraphy H" iA
+\mathcal{H}
+endsnippet
+
 priority 11
 context "math()"
 snippet Cinf "C infinity" iA
@@ -58,6 +63,16 @@ snippet Cinf "C infinity" iA
 endsnippet
 
 priority 1
+
+context "math()"
+snippet linH "linear maps on H" iA
+\mathcal{L}(\mathcal{H})
+endsnippet
+
+context "math()"
+snippet hom "homset" iA
+\mathrm{Hom}
+endsnippet
 
 
 
@@ -137,6 +152,11 @@ endsnippet
 context "math()"
 snippet xx "cross" iA
 \times
+endsnippet
+
+context "math()"
+snippet xox "tensor" iA
+\otimes
 endsnippet
 
 context "math()"
@@ -368,7 +388,7 @@ snippet hch "chi" iA
 endsnippet
 
 context "math()"
-snippet 'g(p+)s' "psi" iAr
+snippet '(?<!\\)(p+)si' "psi" iAr
 `!p
 ps = match.group(1)
 if len(ps) == 1:
@@ -404,6 +424,11 @@ endsnippet
 context "math()"
 snippet ;; "subscript" iA
 _{$1}$0
+endsnippet
+
+context "math()"
+snippet __ "underscore" iA
+\_
 endsnippet
 
 context "math()"
@@ -444,6 +469,11 @@ endsnippet
 context "math()"
 snippet perp "perpendicular" iA
 ^{\bot}
+endsnippet
+
+context "math()"
+snippet adj "adjoint" iA
+^{\dagger}
 endsnippet
 
 

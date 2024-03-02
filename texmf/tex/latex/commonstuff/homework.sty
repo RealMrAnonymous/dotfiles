@@ -10,6 +10,7 @@
 \RequirePackage{tikzducks}
 \RequirePackage{xparse}
 \RequirePackage[skins,breakable]{tcolorbox}
+\RequirePackage{xcolor}
 
 
 % =============================================================================
@@ -17,10 +18,11 @@
 % =============================================================================
 
 % tikzduck that can show the page numbers
+\definecolor{elementair}{HTML}{077770}
 \newcommand\pagenumberduck[1]{
     \begin{tikzpicture}
         \duck[
-            scale=0.5,tshirt=white,jacket=gray,tie=blue,
+            scale=0.5,tshirt=white,jacket=gray,tie=elementair,
             tophat,signpost=\small{\textbf{#1}}
         ]
     \end{tikzpicture}
