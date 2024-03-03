@@ -36,6 +36,18 @@ vim.opt.ruler = true
 vim.opt.cursorline = true
 vim.opt.number = true
 vim.opt.relativenumber = true
+-- vim.api.nvim_create_autocmd("FileType", {
+--     pattern = "tex",
+--     command = "setlocal nocursorline",
+-- })
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "tex",
+    command = "setlocal nornu",
+})
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "tex",
+    command = ":NoMatchParen",
+})
 
 vim.opt.clipboard = "unnamed"
 
@@ -43,7 +55,7 @@ vim.keymap.set('n', "<leader>c", ":nohl<CR><C-l>")
 vim.keymap.set('n', "<leader>u", [[<Cmd>call UltiSnips#RefreshSnippets()<CR>]])
 
 vim.cmd("set spell spelllang=en_gb")
-vim.opt.spell = false
+vim.cmd("set nospell")
 vim.cmd("au FileType tex set spell")
 
 require("lazy").setup({
@@ -188,13 +200,28 @@ vim.g.tex_conceal = "abdmg"
 vim.g.tex_superscripts = "[0-9a-zA-W.,:;+-<>/()=]"
 vim.g.tex_subscripts = "[0-9aehijklmnoprstuvx,+-/().]"
 
-vim.g.UltiSnipsExpandTrigger = "<tab>"
-vim.g.UltiSnipsJumpForwardTrigger = "<tab>"
-vim.g.UltiSnipsJumpBackwardTrigger = "<s-tab>"
+vim.g.UltiSnipsExpandTrigger = '<tab>'
+vim.g.UltiSnipsListSnippets = '<c-tab>'
+vim.g.UltiSnipsJumpForwardTrigger = '<c-j>'
+vim.g.UltiSnipsJumpBackwardTrigger = '<c-k>'
+vim.g.UltiSnipsEditSplit = "vertical"
 
 vim.g.tex_flavor = "latex"
 vim.g.tex_indent_items = 0
-vim.g.tex_indendt_and = 0
+vim.g.tex_indent_and = 0
 vim.g.tex_indent_brace = 0
 vim.cmd("au FileType tex vnoremap <C-_> :s/^/% /<CR>:noh<CR>")
+
+vim.g.mapleader = ","
+
+-- vim.api.nvim_create_autocmd("FileType", {
+--     pattern = "tex",
+--     callback = function()
+--         vim.lsp.start({
+--             name = "latex-lsp",
+--             cmd = { "texlab" },
+--             root_dir = "~/Documents/Studie/Vakken",
+--         })
+--     end,
+-- })
 
