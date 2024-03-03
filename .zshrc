@@ -11,7 +11,7 @@ fi
 
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-alias ll='ls -la'
+alias ll='ls -lah'
 
 
 # alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'

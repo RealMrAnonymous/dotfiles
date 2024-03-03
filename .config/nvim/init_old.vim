@@ -28,7 +28,7 @@ Plug 'sirver/ultisnips'
 let g:UltiSnipsExpandTrigger='<tab>'
 let g:UltiSnipsJumpForwardTrigger='<tab>'
 let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
-
+palenight
 Plug 'preservim/nerdtree'
 
 Plug 'easymotion/vim-easymotion'
@@ -49,7 +49,7 @@ set tabstop=4
 
 " SEARCHING
 " set hlsearch
-" Ctrl+c to unhighlight and redraw
+" Backslash+c to unhighlight and redraw
 nnoremap <leader>c :nohl<CR><C-l>
 
 
