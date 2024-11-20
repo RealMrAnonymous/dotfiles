@@ -1,14 +1,17 @@
 -- Install lazy.nvim if it is not already installed
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--brach=stable",
-        lazypath,
-    })
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+    if vim.v.shell_error ~= 0 then
+        vim.api.nvim_echo({
+            { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+            { out, "WarningMsg" },
+            { "\nPress any key to exit..." },
+        }, true, {})
+        vim.fn.getchar()
+        os.exit(1)
+    end
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -59,55 +62,55 @@ vim.keymap.set('n', "<leader>c", ":nohl<CR><C-l>")
 vim.cmd("au FileType tex set spell spelllang=en_gb")
 
 require("lazy").setup({
-     {
-         "folke/tokyonight.nvim",
-         lazy = false,
-         priority = 1000,
-         opts = {},
-     },
---     {
---         "alexmozaidze/palenight.nvim",
---         priority = 1000,
---     },
+    {
+        "folke/tokyonight.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {},
+    },
+    --     {
+    --         "alexmozaidze/palenight.nvim",
+    --         priority = 1000,
+    --     },
     "nvim-tree/nvim-web-devicons",
     {
         "nvim-lualine/lualine.nvim",
         depedencies = { "nvim-tree/nvim-web-devicons" }
     },
---     {
---         "ggandor/leap.nvim",
---         dependencies = { "tpope/vim-repeat" }
---     },
+    --     {
+    --         "ggandor/leap.nvim",
+    --         dependencies = { "tpope/vim-repeat" }
+    --     },
     "karb94/neoscroll.nvim",
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
     },
---     {
---         "folke/noice.nvim",
---         event = "VeryLazy",
---         dependencies = {
---             "MunifTanjim/nui.nvim",
---             "rcarriga/nvim-notify",
---             "hrsh7th/nvim-cmp",
---         },
---     },
---     {
---         "nvim-telescope/telescope.nvim",
---         tag = "0.1.5",
---         dependencies = {
---             "nvim-lua/plenary.nvim",
---         },
---     },
+    --     {
+    --         "folke/noice.nvim",
+    --         event = "VeryLazy",
+    --         dependencies = {
+    --             "MunifTanjim/nui.nvim",
+    --             "rcarriga/nvim-notify",
+    --             "hrsh7th/nvim-cmp",
+    --         },
+    --     },
+    --     {
+    --         "nvim-telescope/telescope.nvim",
+    --         tag = "0.1.5",
+    --         dependencies = {
+    --             "nvim-lua/plenary.nvim",
+    --         },
+    --     },
     "lervag/vimtex",
     "KeitaNakamura/tex-conceal.vim",
     "SirVer/ultisnips",
 })
 
- require("tokyonight").setup({
-     style = "storm",
-     transparent = true,
- })
+require("tokyonight").setup({
+    style = "storm",
+    transparent = true,
+})
 vim.cmd[[colorscheme tokyonight]]
 
 require("lualine").setup()
@@ -132,51 +135,51 @@ require("neoscroll").setup()
 -- })
 
 require('lualine').setup {
-  options = {
-    icons_enabled = true,
-    theme = 'auto',
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
-    disabled_filetypes = {
-      statusline = {},
-      winbar = {},
+    options = {
+        icons_enabled = true,
+        theme = 'auto',
+        component_separators = { left = '', right = ''},
+        section_separators = { left = '', right = ''},
+        disabled_filetypes = {
+            statusline = {},
+            winbar = {},
+        },
+        ignore_focus = {},
+        always_divide_middle = true,
+        globalstatus = false,
+        refresh = {
+            statusline = 1000,
+            tabline = 1000,
+            winbar = 1000,
+        }
     },
-    ignore_focus = {},
-    always_divide_middle = true,
-    globalstatus = false,
-    refresh = {
-      statusline = 1000,
-      tabline = 1000,
-      winbar = 1000,
-    }
-  },
-  sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
-  },
-  inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
-    lualine_y = {},
-    lualine_z = {}
-  },
-  tabline = {
-    lualine_a = {'buffers'},
-    lualine_b = {},
-    lualine_c = {},
-    lualine_x = {},
-    lualine_y = {},
-    lualine_z = {'tabs'}
+    sections = {
+        lualine_a = {'mode'},
+        lualine_b = {'branch', 'diff', 'diagnostics'},
+        lualine_c = {'filename'},
+        lualine_x = {'encoding', 'fileformat', 'filetype'},
+        lualine_y = {'progress'},
+        lualine_z = {'location'}
     },
-  winbar = {},
-  inactive_winbar = {},
-  extensions = {}
+    inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {'filename'},
+        lualine_x = {'location'},
+        lualine_y = {},
+        lualine_z = {}
+    },
+    tabline = {
+        lualine_a = {'buffers'},
+        lualine_b = {},
+        lualine_c = {},
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {'tabs'}
+    },
+    winbar = {},
+    inactive_winbar = {},
+    extensions = {}
 };
 
 require('nvim-web-devicons').setup {
