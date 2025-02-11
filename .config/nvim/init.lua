@@ -102,7 +102,10 @@ require("lazy").setup({
     --             "nvim-lua/plenary.nvim",
     --         },
     --     },
-    "lervag/vimtex",
+    {
+        "lervag/vimtex",
+        lazy = false,
+    },
     "KeitaNakamura/tex-conceal.vim",
     "SirVer/ultisnips",
 })
