@@ -47,25 +47,23 @@ priority 1
 # ENVIRONMENTS #
 snippet beg "begin/end environment" bA
 \begin{$1}$2
-	$3
-\end{$1}$0
+	$0
+\end{$1}
 endsnippet
 
 
 
 # ENUMERATIONS #
 snippet enum "enumerate" bA
-\begin{enumerate}$1
-	\item $2
+\begin{enumerate}${1:[noitemsep]}
+	\item $0
 \end{enumerate}
-$0
 endsnippet
 
 snippet item "itemise" bA
-\begin{itemize}
-	\item $1
+\begin{itemize}${1:[noitemsep]}
+	\item $0
 \end{itemize}
-$0
 endsnippet
 
 snippet i "\item" b
@@ -78,10 +76,9 @@ endsnippet
 snippet table "Table" b
 \begin{center}
 \begin{tabular}{$1}
-	$2
+	$0
 \end{tabular}
 \end{center}
-$0
 endsnippet
 
 snippet captable "Table with caption" bA
@@ -150,15 +147,15 @@ endsnippet
 
 snippet dm "display math" bA
 \begin{align*}
-	${1:${VISUAL}}
-\end{align*}$0
+	${0:${VISUAL}}
+\end{align*}
 endsnippet
 
 priority 11
 snippet ndm "display math, with labels" bA
 \begin{align}
-	${1:${VISUAL}}
-\end{align}$0
+	${0:${VISUAL}}
+\end{align}
 endsnippet
 priority 1
 

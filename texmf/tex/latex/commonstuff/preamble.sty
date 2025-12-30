@@ -49,9 +49,9 @@
 
 % generic
 \RequirePackage[a4paper,margin=2cm,bottom=3cm]{geometry}
-\RequirePackage{enumerate}
+\RequirePackage{enumitem}
 \RequirePackage{array}
-\RequirePackage{url}
+\RequirePackage[hyphens]{url}
 
 % pictures
 \RequirePackage{graphicx,float}
@@ -62,7 +62,7 @@
 \RequirePackage{amsthm}
 % \RequirePackage{systeme}
 \RequirePackage{circledsteps}
-% \RequirePackage{siunitx}
+\RequirePackage{siunitx}
 
 
 % =============================================================================
@@ -71,7 +71,7 @@
 
 \DeclareEmphSequence{\slshape,\upshape,\slshape}
 
-% \DeclareSIUnit{\boltzmann}{k_B}
+\DeclareSIUnit{\boltzmann}{k_B}
 
 \newcommand\dd[1]{\mathinner{\mathrm{d}#1}}
 \newcommand\dv[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}}

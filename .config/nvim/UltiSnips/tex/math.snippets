@@ -155,11 +155,10 @@ endsnippet
 
 # MATRICES #
 context "math()"
-snippet mat "simple matrix environment" b
+snippet mat "simple matrix environment" w
 \begin{${1:b/B/p/v/V}matrix}
-	$2
+	$0
 \end{$1matrix}
-$0
 endsnippet
 
 context "math()"
@@ -171,22 +170,22 @@ endsnippet
 
 # TYPESETTING #
 context "math()"
-snippet cal "math caligraphy" i
+snippet mcal "math calligraphy" iA
 \mathcal{$1}$0
 endsnippet
 
 context "math()"
-snippet rm "math roman" i
+snippet mrm "math roman" iA
 \mathrm{$1}$0
 endsnippet
 
 context "math()"
-snippet bb "math blackboard" i
+snippet mbb "math blackboard" iA
 \mathbb{$1}$0
 endsnippet
 
 context "math()"
-snippet bf "math boldface" i
+snippet mbf "math boldface" iA
 \mathbf{$1}$0
 endsnippet
 
@@ -242,7 +241,7 @@ context "math()"
 snippet case "cases environment" bA
 \begin{cases}
 	$1 & $2 \\\\
-	$3 & $4
-\end{cases}$0
+	$3 & $0
+\end{cases}
 endsnippet
 
