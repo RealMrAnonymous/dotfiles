@@ -104,6 +104,7 @@ require("lazy").setup({
     --     },
     {
         "lervag/vimtex",
+        version = "v2.15",
         lazy = false,
     },
     "KeitaNakamura/tex-conceal.vim",
@@ -226,4 +227,6 @@ vim.cmd("au FileType tex vnoremap <C-_> :s/^/% /<CR>:noh<CR>")
 --         })
 --     end,
 -- })
+
+vim.env.PATH = "/usr/local/texlive/2026/bin/x86_64-linux:" .. vim.env.PATH
 
